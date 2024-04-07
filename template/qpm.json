@@ -26,20 +26,33 @@
 	"dependencies": [
 		{
 			"id": "beatsaber-hook",
-			"versionRange": "^3.8.0",
+			"versionRange": "^5.1.6",
 			"additionalData": {
-				"extraFiles": [
-					"src/inline-hook"
-				]
+			  "extraFiles": [
+				"src/inline-hook"
+			  ]
 			}
-		},
-		{
-			"id": "modloader",
-			"versionRange": "=1.2.3",
-			"additionalData": {
-				
-			}
-		}
+		  },
+		  {
+			"id": "scotland2",
+			"versionRange": "^0.1.4",
+			"additionalData": {}
+		  },
+		  {
+			"id": "paper",
+			"versionRange": "^3.6.3",
+			"additionalData": {}
+		  },
+		  {
+			"id": "bs-cordl",
+			"versionRange": "^3500.0.0",
+			"additionalData": {}
+		  },
+		  {
+			"id": "kaleb",
+			"versionRange": "^0.1.9",
+			"additionalData": {}
+		  }
 	],
 	"additionalData": {
 		
