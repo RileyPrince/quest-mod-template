@@ -1,0 +1,7 @@
+<bg id='root' xmlns:xsi='http://www.w3.org/1501/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd'>
+    <horizontal pref-width="60" pref-height="58">
+        <vertical>
+            <text text="Example Text"/>
+        </vertical>
+    </horizontal>
+</bg>

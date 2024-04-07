@@ -3,7 +3,7 @@
 #include "beatsaber-hook/shared/utils/hooking.hpp"
 #include <concepts>
 
-namespace ${mod_name} {
+namespace Hooks {
     class Hooks {
     private:
         inline static std::vector<void (*)()> installFuncs;
@@ -36,9 +36,9 @@ namespace ${mod_name} {
     struct Auto_Hook_##name_ {                                                                      \
         static void Auto_Hook_##name_##_Install() {                                                 \
             static constexpr auto logger = Paper::ConstLoggerContext(MOD_ID "_Install_" #name_);    \
-            ::Hooks::InstallOrigHook<Hook_##name_>(logger);                                       \
+            ::Hooks::InstallOrigHook<Hook_##name_>(logger);                                         \
         }                                                                                           \
-        Auto_Hook_##name_() { ::${mod_name}::Hooks::AddInstallFunc(Auto_Hook_##name_##_Install); }   \
+        Auto_Hook_##name_() { ::Hooks::Hooks::AddInstallFunc(Auto_Hook_##name_##_Install); }        \
     };                                                                                              \
     static Auto_Hook_##name_ Auto_Hook_Instance_##name_
 
@@ -46,22 +46,22 @@ namespace ${mod_name} {
     struct Auto_Hook_##name_ {                                                                      \
         static void Auto_Hook_##name_##_Install() {                                                 \
             static constexpr auto logger = Paper::ConstLoggerContext(MOD_ID "_Install_" #name_);    \
-            ::Hooks::InstallHook<Hook_##name_>(logger);                                           \
+            ::Hooks::InstallHook<Hook_##name_>(logger);                                             \
         }                                                                                           \
-        Auto_Hook_##name_() { ::${mod_name}::Hooks::AddInstallFunc(Auto_Hook_##name_##_Install); }   \
+        Auto_Hook_##name_() { ::Hooks::Hooks::AddInstallFunc(Auto_Hook_##name_##_Install); }        \
     };                                                                                              \
     static Auto_Hook_##name_ Auto_Hook_Instance_##name_
 
 #define MAKE_AUTO_HOOK_MATCH(name_, mPtr, retval, ...)                                                                                              \
     struct Hook_##name_ {                                                                                                                           \
         using funcType = retval (*)(__VA_ARGS__);                                                                                                   \
-        static_assert(${mod_name}::match_hookable<mPtr>);                                                                                              \
-        static_assert(std::is_same_v<funcType, ::Hooks::InternalMethodCheck<decltype(mPtr)>::funcType>, "Hook method signature does not match!"); \
+        static_assert(Hooks::match_hookable<mPtr>);                                                                                                 \
+        static_assert(std::is_same_v<funcType, ::Hooks::InternalMethodCheck<decltype(mPtr)>::funcType>, "Hook method signature does not match!");   \
         constexpr static const char* name() { return #name_; }                                                                                      \
         static const MethodInfo* getInfo() { return ::il2cpp_utils::il2cpp_type_check::MetadataGetter<mPtr>::methodInfo(); }                        \
         static funcType* trampoline() { return &name_; }                                                                                            \
         static inline retval (*name_)(__VA_ARGS__) = nullptr;                                                                                       \
-        static funcType hook() { return &::Hooks::HookCatchWrapper<&hook_##name_, funcType>::wrapper; }                                           \
+        static funcType hook() { return &::Hooks::HookCatchWrapper<&hook_##name_, funcType>::wrapper; }                                             \
         static retval hook_##name_(__VA_ARGS__);                                                                                                    \
     };                                                                                                                                              \
     HOOK_AUTO_INSTALL(name_);                                                                                                                       \
@@ -70,13 +70,13 @@ namespace ${mod_name} {
 #define MAKE_AUTO_HOOK_ORIG_MATCH(name_, mPtr, retval, ...)                                                                                         \
     struct Hook_##name_ {                                                                                                                           \
         using funcType = retval (*)(__VA_ARGS__);                                                                                                   \
-        static_assert(${mod_name}::match_hookable<mPtr>);                                                                                              \
-        static_assert(std::is_same_v<funcType, ::Hooks::InternalMethodCheck<decltype(mPtr)>::funcType>, "Hook method signature does not match!"); \
+        static_assert(Hooks::match_hookable<mPtr>);                                                                                                 \
+        static_assert(std::is_same_v<funcType, ::Hooks::InternalMethodCheck<decltype(mPtr)>::funcType>, "Hook method signature does not match!");   \
         constexpr static const char* name() { return #name_; }                                                                                      \
         static const MethodInfo* getInfo() { return ::il2cpp_utils::il2cpp_type_check::MetadataGetter<mPtr>::methodInfo(); }                        \
         static funcType* trampoline() { return &name_; }                                                                                            \
         static inline retval (*name_)(__VA_ARGS__) = nullptr;                                                                                       \
-        static funcType hook() { return &::Hooks::HookCatchWrapper<&hook_##name_, funcType>::wrapper; }                                           \
+        static funcType hook() { return &::Hooks::HookCatchWrapper<&hook_##name_, funcType>::wrapper; }                                             \
         static retval hook_##name_(__VA_ARGS__);                                                                                                    \
     };                                                                                                                                              \
     HOOK_AUTO_INSTALL_ORIG(name_);                                                                                                                  \
